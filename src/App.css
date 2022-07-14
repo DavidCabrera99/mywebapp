@@ -1,9 +1,37 @@
+.WebPageTitle{
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  font-weight: 800;
+  color: orangered;
+}
+.App-intro {
+  font-size:x-large;
+  font-weight:700;
+  color: rgb(37, 37, 37)
+}
+.aside-container{
+  position: relative;
+  width: 100vw;
+  bottom: 0;
+  padding: 0.2rem;
+  
+  justify-content: flex-end;
+  display: block;
+  background: #010111;
+  color: #fff;
+}
+.aside-container h3{
+  display: block;
+  color: orangered;
+}
 .App {
   text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
   pointer-events: none;
 }
 
@@ -12,23 +40,23 @@
     animation: App-logo-spin infinite 20s linear;
   }
   .App-welcome {
-    animation: Welcome 1s linear  infinite;
+    animation: Welcome 10s linear  infinite;
   }
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 50vh;
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: rgb(103, 188, 236);
+  color: orangered;
 }
 
 .App-link {
-  color: #61dafb;
+  color: orangered;
 }
 
 @keyframes App-logo-spin {
@@ -42,12 +70,17 @@
 
 @keyframes Welcome {
   from {
-    transform: scale(150%);
+    transform: scale(115%);
+    color: orangered;
   }
   50% {
     transform: scale(100%);
+    color: #d44747;
+
   }
   to {
-    transform: scale(150%);
+    transform: scale(115%);
+    color: orangered;
+
   }
 }

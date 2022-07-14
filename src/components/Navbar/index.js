@@ -1,22 +1,27 @@
 import React from 'react';
-import {Nav , NavLink, NavMenu} from './NavbarElements';
+import logo from '../../logo.svg'
+import { Link } from 'react-router-dom';
+import {Nav , NavLink, NavMenu, Bars} from './NavbarElements';
 
-const Navbar = () => {
+const Navbar = ({handleNavToggle}) => {
     return (
         <>
+            <Bars onClick={handleNavToggle}/>
             <Nav>
+                <img src={logo} className="App-logo" alt="logo" />
+                <Link to="/" className="WebPageTitle">React Projects</Link>
                 <NavMenu>
                     <NavLink to='/about' activeStyle>
                         About
                     </NavLink>
-                    <NavLink to='/contact' activeStyle>
-                        About
+                    <NavLink to='/calculator' activeStyle>
+                        Calculator
                     </NavLink>
                     <NavLink to='/blogs' activeStyle>
-                        About
+                        Blogs
                     </NavLink>
                     <NavLink to='/sing-up' activeStyle>
-                        About
+                        Singup
                     </NavLink>
                 </NavMenu>
             </Nav>

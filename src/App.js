@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import 'animate.css';
 import Navbar from './components/Navbar'
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import Home from './pages'
 import About from './pages/about';
 import Blogs from './pages/blogs';
 import Singup from './pages/singup';
-import Contact from './pages/contact';
+import Calculator from './pages/calculator';
+import Menu from './components/Menu';
+
 
 class App extends React.Component {
   constructor(){
     super();
     this.state  = {
-      users:[
-        {id: 1, name: "miguel", email: "test@miguelgomez.io"}, 
-        {id: 2, name: "test", email: "test@test.es"}
-      ],
-      id:3
+      navToggled: false
     }
   }
   render() {
+
   return (
     /*<div className="App">
       <header className="App-header">
@@ -34,73 +33,43 @@ class App extends React.Component {
 
         <UserList users={this.state.users}/>
 
-    </div>*/
+        <Toggle handleNavToggle={this.handleNavToggle.bind(this)}/>
+        </div>*/
+        <div className="App">
+          
+
     <Router>
-      <Navbar />
+      <Navbar handleNavToggle={this.handleNavToggle.bind(this)}/>
+      {this.state.navToggled ? <Menu handleNavToggle={this.handleNavToggle.bind(this)}/> : null}
       <Routes>
-        <Route exact path="/" exact element={<Home />}/>
+        <Route exact path="/" element={<Home />}/>
         <Route path="/about" element={<About />}/>
-        <Route path="/contact" element={<Contact />}/>
+        <Route path="/calculator" element={<Calculator />}/>
         <Route path="/blogs" element={<Blogs />}/>
         <Route path="/sing-up"  element={<Singup />}/>
       </Routes>
+      <aside className="aside-container">
+        <h3>
+          Title
+        </h3>
+        <ul>
+          <li>uno</li>
+          <li>dos</li>
+          <li>tres</li>
+        </ul>
+      </aside>
     </Router>
+    </div>
   );
+
 }
-  handleOnAddUser (event) {
-    event.preventDefault();
-    let user = {
-      name: event.target.name.value,
-      email: event.target.email.value,
-      id: this.state.id
-    };
+
+  handleNavToggle (event) {
+    this.setState({navToggled: !this.state.navToggled});
     
-    this.setState({users: this.state.users.concat([user]),
-                    id:this.state.id+1});
   }
 }
 
-class User extends React.Component{
 
-  render(){
-    return (
-      <li>
-        {this.props.id}: {this.props.name} - {this.props.email}
-        
-      </li>
-    )
-  }
-}
-
-class UserList extends React.Component {
-  render() {
-    return (
-      <ul>
-        {this.props.users.map(u=>{
-          return (
-            <User
-              key={u.id}
-              id={u.id}
-              name={u.name}
-              email={u.email}
-              />
-          )
-        })}
-      </ul>
-    )
-  }
-}
-
-class UserForm extends React.Component {
-  render() {
-    return (
-      <form onSubmit={this.props.onAddUser}>
-        <input type="text" placeholder="Nombre" name="name" />
-        <input type="email" placeholder="Email" name="email"/>
-        <input type="submit" value="Guardar" />
-      </form>
-    );
-  }
-}
 
 export default App;
