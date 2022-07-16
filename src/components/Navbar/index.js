@@ -11,16 +11,16 @@ const Navbar = ({handleNavToggle}) => {
                 <img src={logo} className="App-logo" alt="logo" />
                 <Link to="/" className="WebPageTitle">React Projects</Link>
                 <NavMenu>
-                    <NavLink to='/about' activeStyle>
+                    <NavLink to='/about' activestyle="true">
                         About
                     </NavLink>
-                    <NavLink to='/calculator' activeStyle>
+                    <NavLink to='/calculator' activestyle="true">
                         Calculator
                     </NavLink>
-                    <NavLink to='/blogs' activeStyle>
+                    <NavLink to='/blogs' activestyle="true">
                         Blogs
                     </NavLink>
-                    <NavLink to='/sing-up' activeStyle>
+                    <NavLink to='/sing-up' activestyle="true">
                         Singup
                     </NavLink>
                 </NavMenu>

@@ -9,13 +9,14 @@ import Blogs from './pages/blogs';
 import Singup from './pages/singup';
 import Calculator from './pages/calculator';
 import Menu from './components/Menu';
-
+import Login from './components/Login';
 
 class App extends React.Component {
   constructor(){
     super();
     this.state  = {
-      navToggled: false
+      navToggled: false,
+      token:null
     }
   }
   render() {
@@ -46,7 +47,7 @@ class App extends React.Component {
         <Route path="/about" element={<About />}/>
         <Route path="/calculator" element={<Calculator />}/>
         <Route path="/blogs" element={<Blogs />}/>
-        <Route path="/sing-up"  element={<Singup />}/>
+        <Route path="/sing-up"  element={this.state.token?<Singup />:<Login />}/>
       </Routes>
       <aside className="aside-container">
         <h3>

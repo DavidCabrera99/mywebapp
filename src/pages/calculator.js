@@ -20,7 +20,7 @@ class CalculatorPage extends React.Component {
             </div>
             <Calculator className="animate__animated animate__fadeInUp">
                 <CalculatorRow>
-                    <TextCalculator>{this.state.rigthHand}</TextCalculator>
+                    <TextCalculator>{this.state.rigthHand}{this.state.operation}</TextCalculator>
                 </CalculatorRow>
                 <CalculatorRow>
                     <TextCalculator>{this.state.calculatedValue}</TextCalculator>
@@ -60,39 +60,62 @@ class CalculatorPage extends React.Component {
     }
 
     calcula(simbolFunction,but){
-        if(this.state.rigthHand===null){
-            this.setState({calculatedValue:but,rigthHand:this.state.calculatedValue })
+        if(this.state.operation===null){
+            this.setState({calculatedValue:0,rigthHand:this.state.calculatedValue,operation:but})
         }
         else{
-            simbolFunction();
+            let x = parseInt(this.state.rigthHand)
+            let y = parseInt(this.state.calculatedValue)
+            let result = simbolFunction(x,y)
+            this.setState({calculatedValue:0,rigthHand:result,operation:but})
         }
     }
 
+    isSimbol(but){
+        return but==='+'||but==='/'||but==='*'||but==='-'||but==='='
+    }
+
     handleCalculatorButton(event,but){
-        if(this.state.operation==='+'){
+        if(this.isSimbol(but)&&this.state.operation==='+'){
             this.calcula((x,y)=>{
                 return x+y;
             },but)
+            return;
         }
-        if(this.state.operation==='-'){
+        if(this.isSimbol(but)&&this.state.operation==='-'){
             this.calcula((x,y)=>{
                 return x-y;
             },but)
+            return;
+
         }
-        if(this.state.operation==='*'){
+        if(this.isSimbol(but)&&this.state.operation==='*'){
             this.calcula((x,y)=>{
                 return x*y;
             },but)
+
+            return;
+
         }
-        if(this.state.operation==='/'){
+        if(this.isSimbol(but)&&this.state.operation==='/'){
             this.calcula((x,y)=>{
                 return x/y;
             },but)
+            return;
+
+        }
+        if(this.isSimbol(but)&&this.state.operation===null){
+            this.calcula(()=>{},but)
+            return;
         }
         if(but==='='){
-            this.calcula((x,y)=>{
-                return x===y;
-            },but)
+            
+            return;
+
+        }
+        if(but==='del'){
+            this.setState({operation:null,rigthHand:null,calculatedValue:0})
+            return
         }
         if(this.state.calculatedValue===0){
             this.setState({calculatedValue: but})  

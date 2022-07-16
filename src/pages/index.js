@@ -1,5 +1,6 @@
 import React from 'react'
-
+import {TextField, Button} from "@mui/material"
+import styled from 'styled-components'
 /*const Home = ()=>{
     return(
         <div>
@@ -52,6 +53,9 @@ class Home extends React.Component {
     }
   }
   
+  const StyledUL = styled.ul`
+    text-align: start;
+  `
   class User extends React.Component{
   
     render(){
@@ -67,7 +71,7 @@ class Home extends React.Component {
   class UserList extends React.Component {
     render() {
       return (
-        <ul>
+        <StyledUL>
           {this.props.users.map(u=>{
             return (
               <User
@@ -78,7 +82,7 @@ class Home extends React.Component {
                 />
             )
           })}
-        </ul>
+        </StyledUL>
       )
     }
   }
@@ -87,9 +91,11 @@ class Home extends React.Component {
     render() {
       return (
         <form onSubmit={this.props.onAddUser}>
-          <input type="text" placeholder="Nombre" name="name" />
-          <input type="email" placeholder="Email" name="email"/>
-          <input type="submit" value="Guardar" />
+          <div>
+          <TextField color="warning" margin="normal" size="small" label="Nombre" variant="outlined" name="name"/>
+          <TextField color="warning" margin="normal" size="small" label="Email" variant="outlined" name="email"/>
+          </div>
+          <Button type="submit" color="warning" variant="outlined" name="submit">Guardar</Button>
         </form>
       );
     }
