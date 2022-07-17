@@ -10,6 +10,7 @@ import Singup from './pages/singup';
 import Calculator from './pages/calculator';
 import Menu from './components/Menu';
 import Login from './components/Login';
+import {CreateBlogPage} from './pages/blog/create_blog';
 
 class App extends React.Component {
   constructor(){
@@ -48,8 +49,9 @@ class App extends React.Component {
         <Route path="/calculator" element={<Calculator />}/>
         <Route path="/blogs" element={<Blogs />}/>
         <Route path="/sing-up"  element={this.state.token?<Singup />:<Login />}/>
+        <Route path="/blogs/create" element={<CreateBlogPage />}/>
       </Routes>
-      <aside className="aside-container">
+      {/*<aside className="aside-container">
         <h3>
           Title
         </h3>
@@ -58,7 +60,7 @@ class App extends React.Component {
           <li>dos</li>
           <li>tres</li>
         </ul>
-      </aside>
+      </aside>*/}
     </Router>
     </div>
   );

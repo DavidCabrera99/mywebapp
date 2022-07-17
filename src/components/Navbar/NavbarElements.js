@@ -45,7 +45,8 @@ export const Bars = styled(FaBars)`
 export const NavMenu = styled.div`
     display:flex;
     position:absolute;
-    height:10%;
+    height:85px;
+    padding: 0.2rem;
     top:0;
     right:0;
     align-items: center;
