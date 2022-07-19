@@ -1,30 +1,33 @@
-import React from 'react'
+import {React ,useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {Paper, Card} from '@mui/material'
 import logo from '../logo.svg'
+import {NavLink as Link, useParams} from "react-router-dom"
 
 const Blogs = ()=>{
+    let {id} = useParams();
+    const [title,setTitle] = useState(0)
+    const [body,setBody] = useState(1);
+
+    useEffect(()=>{
+        (async () => {
+            const rawResponse = await fetch('/api/blog/get/'+id)
+            const content = await rawResponse.json()
+            console.log(content)
+            setTitle(content.title)
+            let body = content.body.replaceAll("{title}",content.title)
+            setBody(body)
+            //this.setState({title:content.title})
+        })()
+    },[id]
+    )
     return(
         <StyledBlogsPage>
-            <BlogTitle className="animate__animated animate__fadeInLeft">Blogs</BlogTitle>
-            <BlogBody>
-                <p>
-                    La magia de utilizar los componentes react es que nuestras propiedades seguirán siendo las mismas
-                    pero el resultado HTML en nuestro DOM será algo diferente. En el siguiente capítulo aprenderás
-                    a trabajar con las propiedades de tus componentes React, ahora solo me queda recordarte que las
-                    etiquetas HTML que podrás utilizar en tus componentes son:
-                </p>
-                <Card>
-                    <img src={logo} alt="no"/>
-                </Card>
-                <p>
-                Lo que me gustaría que entendieses tras leer este capitulo es que tienes que comenzar a diferenciar
-                entre la definición de propiedades de tu componente y el resultado de su renderización en atributos
-                HTML. Una vez tengas claro que tus componentes pueden tener todo tipo de propiedades con el
-                nombre que decidas, excepto class, y que estas nunca se renderizarán a menos que establezcas sus
-                valores en atributos HTML… podemos pasar al siguiente capítulo
-                </p>
+            <BlogTitle className="animate__animated animate__fadeInLeft">{title}</BlogTitle>
+            <BlogBody  dangerouslySetInnerHTML={{__html:body}}>
+                
             </BlogBody>
+            <Link to="/blogs/create">Create a New Blog</Link>
         </StyledBlogsPage>
     )
 }

@@ -11,6 +11,7 @@ import Calculator from './pages/calculator';
 import Menu from './components/Menu';
 import Login from './components/Login';
 import {CreateBlogPage} from './pages/blog/create_blog';
+import {AllBlogs} from './pages/blog/all_blogs';
 
 class App extends React.Component {
   constructor(){
@@ -47,9 +48,10 @@ class App extends React.Component {
         <Route exact path="/" element={<Home />}/>
         <Route path="/about" element={<About />}/>
         <Route path="/calculator" element={<Calculator />}/>
-        <Route path="/blogs" element={<Blogs />}/>
+        <Route path="/blogs/:id" element={<Blogs />}/>
+        <Route path="/blogs/" element={<AllBlogs />}/>
         <Route path="/sing-up"  element={this.state.token?<Singup />:<Login />}/>
-        <Route path="/blogs/create" element={<CreateBlogPage />}/>
+        <Route path="/blogs/create" element={<CreateBlogPage handleCreateBlog={this.handleCreateBlog.bind(this)}/>}/>
       </Routes>
       {/*<aside className="aside-container">
         <h3>
@@ -70,6 +72,28 @@ class App extends React.Component {
   handleNavToggle (event) {
     this.setState({navToggled: !this.state.navToggled});
     
+  }
+
+  handleCreateBlog (e) {
+    e.preventDefault()
+    let title = e.target.title.value
+    let body = e.target.body.value;
+
+    (async () => {
+        const rawResponse = await fetch('/api/add/blog',{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: title,
+                body: body
+            })
+        })
+        const content = await rawResponse.json()
+        console.log(content)
+    })()
   }
 }
 
