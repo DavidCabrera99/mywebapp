@@ -46,18 +46,28 @@ app.post('/api/uploadfile',(req, res)=>{
     req.busboy.on('file',(fieldname,file, filename)=>{
         console.log("Uploading..."+filename+" "+fieldname+" "+file)
         console.log(filename)
-        fstream = fs.createWriteStream(__dirname+'/img/'+filename.filename)
+
+        var timestamp = new Date().toISOString().replace(/[-:.]/g,"")
+        var random = (""+Math.random()).substring(2,8)
+        var randomname = timestamp + random;
+        
+        fstream = fs.createWriteStream(__dirname+'/img/'+randomname+".png")
         file.pipe(fstream)
         fstream.on('close',()=>{
             console.log("Uploaded file")
-            res.send("{\"status\":\"ok\",\"img\":\"filename.filename\"}")
+            res.send(JSON.stringify(
+                {
+                    status: 'success',
+                    name: randomname+".png"
+                }
+            ))
         })
     })
 })
 
 //Get all blogs
 app.get('/api/get/blogs',(req, res)=>{
-    connection.query("SELECT * FROM post",(err,result)=>{
+    connection.query("SELECT * FROM post ORDER BY date_created DESC",(err,result)=>{
         if(err){
             console.log(err)
         }
@@ -70,8 +80,10 @@ app.get('/api/get/blogs',(req, res)=>{
 app.post('/api/add/blog', (req, res)=>{
     const title = req.body.title;
     const body = req.body.body;
+    const description = req.body.description;
+    const image = req.body.image;
 
-    connection.query("INSERT INTO post (title, body, date_created) VALUES (?, ?,NOW())",[title, body],(err, result)=>{
+    connection.query("INSERT INTO post (title, body, img_link, short_desc, date_created) VALUES (?, ?, ?, ?,NOW())",[title, body, image, description],(err, result)=>{
         if (err) {
             console.error(err);
             res.send(err);

@@ -8,6 +8,8 @@ export const Nav = styled.nav`
     background: #010111;
     height: 85px;
     display: flex;
+    position: sticky;
+    top: 0;
     justify-content: flex-start;
     padding: 0.2rem ;
     z-index:12;

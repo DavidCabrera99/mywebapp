@@ -78,7 +78,9 @@ class App extends React.Component {
     e.preventDefault()
     let title = e.target.title.value
     let body = e.target.body.value;
-
+    let description = e.target.description.value;
+    let image = e.target.image.value;
+    console.log(image);
     (async () => {
         const rawResponse = await fetch('/api/add/blog',{
             method: 'POST',
@@ -88,7 +90,10 @@ class App extends React.Component {
             },
             body: JSON.stringify({
                 title: title,
-                body: body
+                body: body,
+                description: description,
+                image: image,
+
             })
         })
         const content = await rawResponse.json()

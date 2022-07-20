@@ -1,7 +1,6 @@
 import {React ,useState, useEffect} from 'react'
 import styled from 'styled-components'
-import {Paper, Card} from '@mui/material'
-import logo from '../logo.svg'
+import {Paper, Grid} from '@mui/material'
 import {NavLink as Link, useParams} from "react-router-dom"
 
 const Blogs = ()=>{
@@ -23,11 +22,18 @@ const Blogs = ()=>{
     )
     return(
         <StyledBlogsPage>
+            <Grid container>
+            <Grid item xs={0} md={2}>
+                <span />
+            </Grid>
+                <Grid item xs={12} md={8}>
             <BlogTitle className="animate__animated animate__fadeInLeft">{title}</BlogTitle>
             <BlogBody  dangerouslySetInnerHTML={{__html:body}}>
                 
             </BlogBody>
             <Link to="/blogs/create">Create a New Blog</Link>
+            </Grid>
+            </Grid>
         </StyledBlogsPage>
     )
 }
@@ -46,11 +52,10 @@ const BlogTitle =styled.h1`
     font-size: clamp(3rem,5vw,7vw);
     color:#eee;
     width: 100%;
+    max-width:750px;
     font-weight: 700;
     margin: 0;
     padding: 5px;
-    position: sticky;
-    top: 0;
     user-select: none;
     background-color: #282c34;
     border-radius:15px;

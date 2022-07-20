@@ -1,9 +1,10 @@
 import {React,useState, useEffect} from 'react';
 import styled from 'styled-components'
-import {Grid} from '@mui/material'
+import {Grid,Card, CardMedia, CardContent, CardActionArea} from '@mui/material'
+import {useNavigate} from 'react-router-dom'
 
 export const AllBlogs  = ()=>{
-    const [blogs, setBlogs] =useState([{pid:0, title:"HOla"}])
+    const [blogs, setBlogs] =useState(null)
     useEffect(()=>{
         (async () => {
             const rawResponse = await fetch('/api/get/blogs')
@@ -15,7 +16,7 @@ export const AllBlogs  = ()=>{
         })()
     }
     ,[])
-
+    var a=-1;
     return (
         /*<AllBlogsContainer>
             {blogs.map(blog =>{
@@ -24,27 +25,42 @@ export const AllBlogs  = ()=>{
                 )
             })}
         </AllBlogsContainer>*/
-        <Grid container spacing={2}>
-            {
+        <div>
+        <Grid container spacing={2} padding="12px">
+            {blogs===null?a:
             blogs.map(blog =>{
-                
+                a+=1
                 return (
-                    <Blog key={blog.key} title={blog.title} id={blog.pid}/>
+                    <Blog key={blog.key} title={blog.title} id={a} image={"http://localhost:3002/img/"+blog.img_link} pid={blog.pid} description={blog.short_desc}/>
                 )
             })}
+            
         </Grid>
+        </div>
     )
 }
 
-const Blog = ({key,title,id}) =>{
-    
+const Blog = ({image,title,id,description,pid}) =>{
+    let navigate = useNavigate();
+
+    const routeChange = (event,id)=>{
+        let path = `/blogs/${id}`
+        navigate(path)
+    }
 
     return (
+            <Grid item xs={12} md={id%4===1||id%4===2?8:4}>
+                <Card variant="outlined">
+                    <CardActionArea onClick={(e)=>routeChange(e,pid)}>
+                    <CardMedia component="img" alt="Image" src={image} title={""+image} height="200"/>
+                    <CardContent>
 
-        <Grid item xs={12} md={id%4===0?8:4}>
-            <h1>{title}</h1>
-            <p>{id} El primer parrafo de la noticia</p>
-        </Grid>
+                <h1>{title}</h1>
+                <p>{description}</p>
+                </CardContent>
+                </CardActionArea>
+                </Card>
+            </Grid>
     )
 }
 
