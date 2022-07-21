@@ -1,5 +1,4 @@
 import {React,useState, useEffect} from 'react';
-import styled from 'styled-components'
 import {Grid,Card, CardMedia, CardContent, CardActionArea} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
 
@@ -11,7 +10,6 @@ export const AllBlogs  = ()=>{
             const content = await rawResponse.json()
             console.log(content)
             setBlogs(content.blogs)
-            console.log(blogs)
             //this.setState({title:content.title})
         })()
     }
@@ -31,7 +29,7 @@ export const AllBlogs  = ()=>{
             blogs.map(blog =>{
                 a+=1
                 return (
-                    <Blog key={blog.key} title={blog.title} id={a} image={"http://localhost:3002/img/"+blog.img_link} pid={blog.pid} description={blog.short_desc}/>
+                    <Blog key={blog.pid} title={blog.title} id={a} image={"https://serverapi.onrender.com/img/"+blog.img_link} pid={blog.pid} description={blog.short_desc}/>
                 )
             })}
             
@@ -63,10 +61,3 @@ const Blog = ({image,title,id,description,pid}) =>{
             </Grid>
     )
 }
-
-const AllBlogsContainer = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 2fr;
-
-`

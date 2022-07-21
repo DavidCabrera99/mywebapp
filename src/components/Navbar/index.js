@@ -6,8 +6,8 @@ import {Nav , NavLink, NavMenu, Bars} from './NavbarElements';
 const Navbar = ({handleNavToggle}) => {
     return (
         <>
-            <Bars onClick={handleNavToggle}/>
             <Nav>
+            <Bars onClick={handleNavToggle}/>
                 <img src={logo} className="App-logo" alt="logo" />
                 <Link to="/" className="WebPageTitle">React Projects</Link>
                 <NavMenu>

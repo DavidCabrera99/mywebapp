@@ -1,6 +1,5 @@
 import React from 'react';
 import {Paper, TextField, Button, Grid, ImageList, ImageListItem, ImageListItemBar, IconButton} from '@mui/material'
-import styled from 'styled-components'
 import { FaCopy } from 'react-icons/fa';
 
 export class CreateBlogPage extends React.Component{
@@ -37,7 +36,7 @@ export class CreateBlogPage extends React.Component{
     }
 
     copyClipboard(e,path){
-        navigator.clipboard.writeText("<img width=\"100%\" src=\"http://localhost:3002/img/"+path+"\" alt=\"img\" />").then(()=>{
+        navigator.clipboard.writeText("<img width=\"100%\" src=\"https://serverapi.onrender.com/img/"+path+"\" alt=\"img\" />").then(()=>{
             console.log("ok")
             }).catch(err=>console.error(err))
     }
@@ -49,21 +48,22 @@ export class CreateBlogPage extends React.Component{
                 <span />
             </Grid>
             <Grid item xs={12} md={6}>
-            <Paper sx="padding:15px;max-width:750px;
-                
-            ">
+            <Paper sx={{
+                padding: '15px',
+                maxWidth: '750px'
+            }}>
                 <h1>Creacion de Blogs</h1>
                 <form onSubmit={this.props.handleCreateBlog}>
-                    <TextField fullWidth={true} color="warning" margin="normal" size="normal" label="Titulo" variant="outlined"  name="title" sx=""/>
+                    <TextField fullWidth={true} color="warning" margin="normal" size="normal" label="Titulo" variant="outlined"  name="title" />
                     <TextField
                         multiline={true}
                         label="Cuerpo del Blog"
                         fullWidth={true}
                         minRows="10"
-                        sx="
-                            margin-top:10px;
-                            margin-bottom:10px;
-                            "
+                        sx={{
+                            marginTop: '10px',
+                            marginBottom: '10px',
+                        }}
                         name="body"
                         />
                         <TextField
@@ -71,10 +71,10 @@ export class CreateBlogPage extends React.Component{
                         label="Description"
                         fullWidth={true}
                         minRows="3"
-                        sx="
-                            margin-top:10px;
-                            margin-bottom:10px;
-                            "
+                        sx={{
+                            marginTop: '10px',
+                            marginBottom: '10px',
+                        }}
                         name="description"
                         />
                     <input type="hidden" name="image" value={this.state.selectedFile.length===0?"":this.state.selectedFile[0].path}/>
@@ -83,9 +83,12 @@ export class CreateBlogPage extends React.Component{
             </Paper>
             </Grid>
             <Grid item xs={12} md={4}>
-            <Paper sx="padding:15px;max-width:750px;margin-top:10px;
-                
-            ">
+            <Paper sx={{
+                padding:'15px',
+                maxWidth: '750px',
+                marginTop: '10px',
+
+            }} >
                 <h2>Imagenes</h2>
                 <p>La primera imagen es obligatoria y es la principal del blog</p>
                 <ImageList sx={{
@@ -118,9 +121,3 @@ export class CreateBlogPage extends React.Component{
     }
 }
 
-const BasePage = styled.div`
-    display: grid;
-    grid-template-columns: 0.3fr auto 0.3fr;
-    padding:15px;
-
-`

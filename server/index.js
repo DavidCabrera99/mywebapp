@@ -94,6 +94,31 @@ app.post('/api/add/blog', (req, res)=>{
     })
 })
 
+//Add comment
+app.post('/api/add/comment', (req, res)=>{
+    const email = req.body.email;
+    const comment = req.body.comment;
+    const id = req.body.id;
+
+    connection.query("INSERT INTO comments (author, comment, post_id, date_created) VALUES (?, ?, ?,NOW())",[email, comment, id],(err, result)=>{
+        if (err) {
+            console.error(err);
+            res.send(err);
+        }else{
+            console.log(result);
+            connection.query("SELECT * FROM comments WHERE post_id =?",[id,],(err, result)=>{
+                if (err) {
+                    console.error(err);
+                    res.send(err);
+                }else{
+                    console.log(result);
+                    res.send(JSON.stringify({comments:result}));
+                }
+            })
+        }
+    })
+})
+
 //Get Blog by id
 app.get('/api/blog/get/:id',(req, res)=>{
     const id = req.params.id;
@@ -109,11 +134,28 @@ app.get('/api/blog/get/:id',(req, res)=>{
     })
 })
 
+//Get Comments from a blog id
+app.get('/api/blog/get/comments/:id',(req, res)=>{
+    const id = req.params.id;
+    console.log(id);
+    connection.query("SELECT * FROM comments WHERE post_id =?",[id,],(err, result)=>{
+        if (err) {
+            console.error(err);
+            res.send(err);
+        }else{
+            console.log(JSON.stringify({comments:result}));
+            res.send(JSON.stringify({comments:result}));
+        }
+    })
+})
+
+
 const mysql_user = {
-    host: 'localhost',
-    user: 'root',
-    password: '1',
-    database: 'myReactDB'
+    host: 'sql.freedb.tech',
+    user: 'freedb_david',
+    password: 'n!KKHcUpC8GjWdH',
+    database: 'freedb_myreactdb',
+    port: 3306,
 }
 const connection = mysql.createConnection(mysql_user, {
     multipleStatements: true,

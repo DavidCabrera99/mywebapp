@@ -55,10 +55,10 @@ export default class Login extends React.Component{
         <StyledLoginPage>
             <Heading>{this.state.username}-{this.state.email}-{this.state.age}</Heading>
             <form onSubmit={this.addUser.bind(this)}>
-                <Card   variant="outlined" sx="width:70vw; padding:15px;">
-                    <TextField fullWidth={true} color="warning" margin="normal" size="small" label="Nombre" variant="outlined"  name="name" sx="display:block;"/>
-                    <TextField fullWidth={true} color="warning" margin="normal" size="small" label="Email" variant="outlined"  name="email" sx="display:block;"/>
-                    <TextField fullWidth={true} color="warning" margin="normal" size="small" label="Age" variant="outlined"  name="age" sx="display:block;"/>
+                <Card   variant="outlined" sx={{width:'70vw', padding:'15px',}}>
+                    <TextField fullWidth={true} color="warning" margin="normal" size="small" label="Nombre" variant="outlined"  name="name" sx={{display:'block'}}/>
+                    <TextField fullWidth={true} color="warning" margin="normal" size="small" label="Email" variant="outlined"  name="email" sx={{display:'block'}}/>
+                    <TextField fullWidth={true} color="warning" margin="normal" size="small" label="Age" variant="outlined"  name="age" sx={{display:'block'}}/>
                     <Button type="submit" color="warning" variant="contained" name="submit">Login</Button>
                 </Card>
             </form> 
