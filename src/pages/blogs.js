@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {Paper, Grid, Card, TextField,Button, IconButton, Badge, Skeleton} from '@mui/material'
 import {NavLink as Link, useParams} from "react-router-dom"
 import {FaTimes as ButtonUp} from 'react-icons/fa'
+import {PATH,ADS} from '../path'
 
 const Blogs = ()=>{
     let {id} = useParams();
@@ -11,11 +12,12 @@ const Blogs = ()=>{
 
     useEffect(()=>{
         (async () => {
-            const rawResponse = await fetch('/api/blog/get/'+id)
+            const rawResponse = await fetch(PATH+'/api/blog/get/'+id)
             const content = await rawResponse.json()
             console.log(content)
             setTitle(content.title)
             let body = content.body.replaceAll("{title}",content.title)
+            body = body.replaceAll("{ad}",ADS)
             setBody(body)
             //this.setState({title:content.title})
         })()
@@ -70,7 +72,7 @@ const Comments = ({id})=> {
 
     useEffect(()=>{
         (async () => {
-            const rawResponse = await fetch('/api/blog/get/comments/' + id)
+            const rawResponse = await fetch(PATH+'/api/blog/get/comments/' + id)
             const content = await rawResponse.json()
             console.log(content)
             setComments(content.comments)
@@ -118,7 +120,7 @@ const NewComment = ({id, setComments})=>{
         let id = e.target.id.value;
 
         (async () => {
-            const rawResponse = await fetch('/api/add/comment',{
+            const rawResponse = await fetch(PATH+'/api/add/comment',{
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

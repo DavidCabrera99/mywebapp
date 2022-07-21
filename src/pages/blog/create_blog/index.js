@@ -1,6 +1,7 @@
 import React from 'react';
 import {Paper, TextField, Button, Grid, ImageList, ImageListItem, ImageListItemBar, IconButton} from '@mui/material'
 import { FaCopy } from 'react-icons/fa';
+import {PATH} from '../../../path'
 
 export class CreateBlogPage extends React.Component{
     constructor(){
@@ -22,7 +23,7 @@ export class CreateBlogPage extends React.Component{
             const formData = new FormData();
             formData.append("myFile",file,file.name);
             (async () => {
-                const rawResponse = await fetch('/api/uploadfile',{
+                const rawResponse = await fetch(PATH+'/api/uploadfile',{
                     method: 'POST',
                     body: formData
                 })
@@ -36,7 +37,7 @@ export class CreateBlogPage extends React.Component{
     }
 
     copyClipboard(e,path){
-        navigator.clipboard.writeText("<img width=\"100%\" src=\"https://serverapi.onrender.com/img/"+path+"\" alt=\"img\" />").then(()=>{
+        navigator.clipboard.writeText("<img width=\"100%\" src=\""+PATH+"/img/"+path+"\" alt=\"img\" />").then(()=>{
             console.log("ok")
             }).catch(err=>console.error(err))
     }

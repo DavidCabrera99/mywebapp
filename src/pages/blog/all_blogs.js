@@ -1,12 +1,13 @@
 import {React,useState, useEffect} from 'react';
 import {Grid,Card, CardMedia, CardContent, CardActionArea} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
+import {PATH} from '../../path'
 
 export const AllBlogs  = ()=>{
     const [blogs, setBlogs] =useState(null)
     useEffect(()=>{
         (async () => {
-            const rawResponse = await fetch('/api/get/blogs')
+            const rawResponse = await fetch(PATH+'/api/get/blogs')
             const content = await rawResponse.json()
             console.log(content)
             setBlogs(content.blogs)
@@ -29,7 +30,7 @@ export const AllBlogs  = ()=>{
             blogs.map(blog =>{
                 a+=1
                 return (
-                    <Blog key={blog.pid} title={blog.title} id={a} image={"https://serverapi.onrender.com/img/"+blog.img_link} pid={blog.pid} description={blog.short_desc}/>
+                    <Blog key={blog.pid} title={blog.title} id={a} image={PATH+"/img/"+blog.img_link} pid={blog.pid} description={blog.short_desc}/>
                 )
             })}
             
@@ -47,8 +48,10 @@ const Blog = ({image,title,id,description,pid}) =>{
     }
 
     return (
-            <Grid item xs={12} md={id%4===1||id%4===2?8:4}>
-                <Card variant="outlined">
+            <Grid item xs={12} md={id%4===1||id%4===2?7:5}>
+                <Card variant="outlined" sx={{
+                    height:'300',
+                    }}>
                     <CardActionArea onClick={(e)=>routeChange(e,pid)}>
                     <CardMedia component="img" alt="Image" src={image} title={""+image} height="200"/>
                     <CardContent>

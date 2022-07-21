@@ -12,6 +12,7 @@ import Menu from './components/Menu';
 import Login from './components/Login';
 import {CreateBlogPage} from './pages/blog/create_blog';
 import {AllBlogs} from './pages/blog/all_blogs';
+import {PATH} from './path'
 
 class App extends React.Component {
   constructor(){
@@ -82,7 +83,7 @@ class App extends React.Component {
     let image = e.target.image.value;
     console.log(image);
     (async () => {
-        const rawResponse = await fetch('/api/add/blog',{
+        const rawResponse = await fetch(PATH+'/api/add/blog',{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
