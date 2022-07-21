@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {TextField, Button, Card} from '@mui/material'
+import {PATH} from '../../path'
 
 export default class Login extends React.Component{
     constructor(){
@@ -23,7 +24,7 @@ export default class Login extends React.Component{
             age: age
         }));
         (async () => {
-            const rawResponse = await fetch('/api/add/user',{
+            const rawResponse = await fetch(PATH+'/api/add/user',{
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
