@@ -65,6 +65,7 @@ class App extends React.Component {
         </ul>
       </aside>*/}
     </Router>
+    
     </div>
   );
 

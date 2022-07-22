@@ -4,11 +4,14 @@ import {Paper, Grid, Card, TextField,Button, IconButton, Badge, Skeleton} from '
 import {NavLink as Link, useParams} from "react-router-dom"
 import {FaTimes as ButtonUp} from 'react-icons/fa'
 import {PATH,ADS} from '../path'
+import {Helmet} from 'react-helmet'
 
 const Blogs = ()=>{
     let {id} = useParams();
     const [title,setTitle] = useState(0)
     const [body,setBody] = useState(1);
+    const [img,setImg] = useState('')
+    const [description,setDescription] = useState('')
 
     useEffect(()=>{
         (async () => {
@@ -19,12 +22,25 @@ const Blogs = ()=>{
             let body = content.body.replaceAll("{title}",content.title)
             body = body.replaceAll("{ad}",ADS)
             setBody(body)
+            setImg(PATH+"/img/"+content.img_link)
+            setDescription(content.short_desc)
             //this.setState({title:content.title})
         })()
     },[id]
     )
     return(
         <StyledBlogsPage>
+            <Helmet>
+            <title>{title}</title>
+            <meta
+            name="description"
+            content={description}
+            />
+            <meta property="og:image" content={img}/>
+            <meta property="og:title" content={title}/>
+            <meta property="og:description" content={description}/>
+            <meta property="og:type" content="website" />
+        </Helmet>
             <Grid container>
                 <Grid item xs={0} md={2}>
                     <span />
@@ -51,7 +67,6 @@ const Blogs = ()=>{
                 <BlogBody  dangerouslySetInnerHTML={{__html:body}}>
                 </BlogBody>
                 }
-                <Link to="/blogs/create">Create a New Blog</Link>
                 </Grid>
                 <Grid item xs={0} md={2}>
                     <span />

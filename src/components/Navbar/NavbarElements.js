@@ -13,6 +13,9 @@ export const Nav = styled.nav`
     justify-content: flex-start;
     padding: 0.2rem ;
     z-index:12;
+    @media screen and (max-width: 768px) {
+        height: 42px;
+    }
     `;
 
 export const NavLink = styled(Link)`
@@ -37,7 +40,7 @@ export const Bars = styled(FaBars)`
         position: absolute;
         top: 0;
         right: 0;
-        transform: translate(-100%, 75%);
+        transform: translate(-75%, 25%);
         font-size: 1.8rem;
         cursor: pointer;
     }

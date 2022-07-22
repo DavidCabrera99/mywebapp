@@ -3,12 +3,17 @@ const express = require('express');
 var busboy = require('connect-busboy');
 var path = require('path');
 var fs = require('fs-extra');
+var cors = require('cors');
 
 const app = express();
 const PORT = 80
 app.use('/img',express.static(path.join(__dirname, 'img')))
 app.use(express.json());
 app.use(busboy());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 
 //Get All Users
 app.get("/api/get/users", (req, res) => {
@@ -157,7 +162,15 @@ const mysql_user = {
     database: 'freedb_myreactdb',
     port: 3306,
 }
-const connection = mysql.createConnection(mysql_user, {
+
+const mysql_user_local = {
+    host: 'localhost',
+    user: 'root',
+    password: '1',
+    database: 'myReactDB'
+}
+
+const connection = mysql.createConnection(mysql_user_local, {
     multipleStatements: true,
 })
 

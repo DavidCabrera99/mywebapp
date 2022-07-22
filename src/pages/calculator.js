@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import {Helmet} from 'react-helmet'
 
 class CalculatorPage extends React.Component {
     constructor(){
@@ -15,6 +15,17 @@ class CalculatorPage extends React.Component {
     render() {
     return(
         <StyledCalculatorPage>
+            <Helmet>
+            <title>Calculadora - MyReactDbBlog</title>
+            <meta
+            name="description"
+            content="Simple calculadora hecha completamente en reactjs"
+            />
+            <meta property="og:image" content="./logo512.png"/>
+            <meta property="og:title" content="Calculadora - MyReactDbBlog"/>
+            <meta property="og:description" content="Simple calculadora hecha completamente en reactjs"/>
+            <meta property="og:type" content="website" />
+        </Helmet>
             <div>
                 <h1>Calculadora React</h1>
             </div>

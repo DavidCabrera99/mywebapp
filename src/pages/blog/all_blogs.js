@@ -1,7 +1,9 @@
 import {React,useState, useEffect} from 'react';
-import {Grid,Card, CardMedia, CardContent, CardActionArea} from '@mui/material'
+import {Grid,Card, CardMedia, CardContent, CardActionArea, Skeleton, Divider} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
 import {PATH} from '../../path'
+import styled from 'styled-components'
+import {Helmet} from 'react-helmet'
 
 export const AllBlogs  = ()=>{
     const [blogs, setBlogs] =useState(null)
@@ -25,12 +27,31 @@ export const AllBlogs  = ()=>{
             })}
         </AllBlogsContainer>*/
         <div>
+        <Helmet>
+            <title>Blogs - MyReactDbBlog</title>
+            <meta
+            name="description"
+            content="Todo tipo de blogs en un solo sitio web para todo tipo de personas"
+            />
+            <meta property="og:image" content="./logo512.png"/>
+            <meta property="og:title" content="Blogs - MyReactDbBlog"/>
+            <meta property="og:description" content="Todo tipo de blogs en un solo sitio web para todo tipo de personas"/>
+            <meta property="og:type" content="website" />
+        </Helmet>
         <Grid container spacing={2} padding="12px">
-            {blogs===null?a:
+            {blogs===null?
+            [0,1,2,3,4,5,6,7,9,8].map(blog =>{
+                a+=1
+                return (
+                    <Blog key={a} skeleton={true} id={a}/>
+                )
+            })
+            
+            :
             blogs.map(blog =>{
                 a+=1
                 return (
-                    <Blog key={blog.pid} title={blog.title} id={a} image={PATH+"/img/"+blog.img_link} pid={blog.pid} description={blog.short_desc}/>
+                    <Blog key={blog.pid} title={blog.title} id={a} image={PATH+"/img/"+blog.img_link} pid={blog.pid} description={blog.short_desc} skeleton={false}/>
                 )
             })}
             
@@ -39,7 +60,7 @@ export const AllBlogs  = ()=>{
     )
 }
 
-const Blog = ({image,title,id,description,pid}) =>{
+const Blog = ({image,title,id,description,pid,skeleton}) =>{
     let navigate = useNavigate();
 
     const routeChange = (event,id)=>{
@@ -49,18 +70,44 @@ const Blog = ({image,title,id,description,pid}) =>{
 
     return (
             <Grid item xs={12} md={id%4===1||id%4===2?7:5}>
+                {skeleton?
+                <Skeleton variant="rectangular" sx={{
+                    borderRadius:'4px',
+                }}>
+                    <Card variant="outlined" sx={{
+                    height:'300px',
+                    
+                    width:'100vw',
+                    }}></Card>
+                </Skeleton>
+                :
                 <Card variant="outlined" sx={{
-                    height:'300',
+                    height:'300px',
                     }}>
-                    <CardActionArea onClick={(e)=>routeChange(e,pid)}>
-                    <CardMedia component="img" alt="Image" src={image} title={""+image} height="200"/>
-                    <CardContent>
+                    <CardActionArea onClick={(e)=>routeChange(e,pid)} sx={{height:'100%',alignItems:'flex-start',flexDirection:'column'}}>
+                    <CardMedia component="img" alt="Image" src={image} title={""+image} height="200px"/>
+                    <CardContent sx={{
+                        padding:'2px',
+                        width: '100%'
+                    }}>
 
-                <h1>{title}</h1>
-                <p>{description}</p>
+                <Title>{title}</Title>
+                <hr/>
+                <SubTitle>{description}</SubTitle>
                 </CardContent>
                 </CardActionArea>
                 </Card>
+                }
             </Grid>
     )
 }
+
+const Title = styled.h1`
+    margin-block-start: 0;
+    margin-block-end: 0;
+`
+const SubTitle = styled.p`
+    margin-block-start: 0;
+    margin-block-end: 0;
+    text-align: left;
+`
