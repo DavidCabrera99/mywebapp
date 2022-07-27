@@ -220,7 +220,6 @@ const MyCard2 = styled.div`
 const StyledBlogsPage = styled.div`
     min-height: 100vh;
     width: 100vw;
-    background-color: #fff;
 
     display: flex;
     flex-direction: column;
@@ -230,16 +229,17 @@ const StyledBlogsPage = styled.div`
 
 const BlogTitle =styled.h1`
     font-size: 3rem;
-    color:#eee;
+    color: orangered;
     width: 100vw;
     max-width:750px;
     font-weight: 700;
     margin: 0;
     padding: 5px;
     user-select: none;
-    background-color: #282c34;
+    background: linear-gradient(135deg, #66000065, #1112e765);;
     border-radius:15px;
     margin-top: 10px;
+    
 `;
 
 const BlogBody = styled(Paper)`
