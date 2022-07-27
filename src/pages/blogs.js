@@ -1,7 +1,7 @@
 import {React ,useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {Paper, Grid, Card, TextField,Button, IconButton, Badge, Skeleton} from '@mui/material'
-import {NavLink as Link, useParams} from "react-router-dom"
+import {useParams} from "react-router-dom"
 import {FaTimes as ButtonUp} from 'react-icons/fa'
 import {PATH,ADS} from '../path'
 import {Helmet} from 'react-helmet'
