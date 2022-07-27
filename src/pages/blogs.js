@@ -4,7 +4,7 @@ import {Paper, Grid, Card, TextField,Button, IconButton, Badge, Skeleton} from '
 import {useParams} from "react-router-dom"
 import {FaTimes as ButtonUp} from 'react-icons/fa'
 import {PATH,ADS} from '../path'
-import {Helmet} from 'react-helmet'
+import {HelmetProvider,Helmet} from 'react-helmet-async'
 
 const Blogs = ()=>{
     let {id} = useParams();
@@ -30,6 +30,7 @@ const Blogs = ()=>{
     )
     return(
         <StyledBlogsPage>
+            <HelmetProvider>
             <Helmet>
             <title>{title}</title>
             <meta
@@ -41,6 +42,7 @@ const Blogs = ()=>{
             <meta property="og:description" content={description}/>
             <meta property="og:type" content="website" />
         </Helmet>
+        </HelmetProvider>
             <Grid container>
                 <Grid item xs={0} md={2}>
                     <span />
