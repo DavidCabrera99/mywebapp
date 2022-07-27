@@ -34,7 +34,7 @@ class Home extends React.Component {
               alignItems:"baseline",
             }}>
             
-            <Grid item xs={6} md={6} >
+            <Grid item xs={6} md={4} >
               <img src={brain} alt="brain" width="100%" height="100%" />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -47,10 +47,10 @@ class Home extends React.Component {
                   The team want to work hard and to be able to improve this website to make it accessible and easy to use for everyone.
                   </Mh1>
               </Grid>
-              <Grid item xs={0} md={6}>
+              <Grid item xs={0} md={4}>
               <img src={face} alt="brain" width="100%" height="100%"/>
               </Grid>
-              <Grid item xs={6} md={6}>
+              <Grid item xs={6} md={4}>
               <img src={chart} alt="brain" width="100%" height="100%"/>
               </Grid>
               <Grid item xs={12} md={6}>

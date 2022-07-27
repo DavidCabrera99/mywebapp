@@ -64,7 +64,7 @@ const Blogs = ()=>{
                     }} height="320px">
                         <BlogBody>hola</BlogBody>
                         </Skeleton>:
-                <BlogBody  dangerouslySetInnerHTML={{__html:body}}>
+                <BlogBody  className="animate__animated animate__fadeInUp" dangerouslySetInnerHTML={{__html:body}}>
                 </BlogBody>
                 }
                 </Grid>
@@ -98,7 +98,7 @@ const Comments = ({id})=> {
         <div>
             {comments.map(comment=>{
                 return(
-                <SingleComment comment={comment.comment} key={comment.cid} title={comment.author}/>
+                <SingleComment date= {comment.date_created} comment={comment.comment} key={comment.cid} title={comment.author} like={comment.repeticiones} cid={comment.cid}/>
                 )
             })}
             <NewComment id={id} setComments={setComments}/>
@@ -106,28 +106,55 @@ const Comments = ({id})=> {
     )
 }
 
-const SingleComment = ({comment,title})=>{
+const SingleComment = ({cid,comment,title,like,date})=>{
+
+    const [repeat,SetRepeat] = useState(like)
+
+    const RepeatComment= (event,comment)=>{
+        event.preventDefault();
+        (async () => {
+            const rawResponse = await fetch(PATH+'/api/comments/repeat/' + comment)
+            const content = await rawResponse.json()
+            console.log(content)
+            SetRepeat(content.repeticiones)
+        })()
+    }
+
     return(
         
-            <MyCard>
-                <h3>{title}:</h3>
-                <Badge badgeContent={'x4'} color="warning" anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+        <MyCard>
+                <Date>{date}</Date>
+                <Title>{title}:</Title>
+                <Badge badgeContent={'x'+repeat} color="warning" anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
                     <p>{comment}</p>
                 </Badge>
                 <MyCard2>
-                <IconButton sx={{
+                {repeat===like?<IconButton  onClick={(e)=>RepeatComment(e,cid)}>
+                    <ButtonUp />
+                    2
+                </IconButton>:
+                <IconButton  sx={{color: '#081da9'
                     }}>
                     <ButtonUp />
                     2
-                </IconButton>
+                </IconButton>}
                 </MyCard2>
             </MyCard>
         
     )
 }
 
+const Date = styled.p`
+margin: 0px;
+color: #000000a2;
+`
+const Title = styled.h2`
+margin: 0px;
+`
+
 const NewComment = ({id, setComments})=>{
 
+    
     const submit = (e)=>{
         e.preventDefault()
         let email = e.target.email.value

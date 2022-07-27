@@ -154,6 +154,30 @@ app.get('/api/blog/get/comments/:id',(req, res)=>{
     })
 })
 
+//Add Comments repeat
+app.get('/api/comments/repeat/:id',(req, res)=>{
+    const id = req.params.id;
+    console.log(id);
+
+    connection.query("UPDATE comments SET repeticiones = repeticiones + 1 WHERE cid =?",[id,],(err,result)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            connection.query("SELECT * FROM comments WHERE cid =?",[id,],(err, result)=>{
+                if (err) {
+                    console.error(err);
+                    res.send(err);
+                }else{
+                    res.send(JSON.stringify(result[0]));
+                }
+            })
+        }
+    })
+
+    
+})
 
 const mysql_user = {
     host: 'sql.freedb.tech',
