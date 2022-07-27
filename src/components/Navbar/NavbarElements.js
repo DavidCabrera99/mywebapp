@@ -5,7 +5,7 @@ import styled from "styled-components"
 
 
 export const Nav = styled.nav`
-    background: #010111;
+    background: linear-gradient(90deg, #660000, #1112e7);
     height: 85px;
     display: flex;
     position: sticky;
