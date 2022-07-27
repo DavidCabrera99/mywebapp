@@ -60,7 +60,7 @@
 }
 
 body {
-  background-color: rgb(189, 189, 189)
+  background: linear-gradient(45deg, #e21818, #4158ec)
 }
 
 @keyframes App-logo-spin {
