@@ -13,6 +13,7 @@ import Login from './components/Login';
 import {CreateBlogPage} from './pages/blog/create_blog';
 import {AllBlogs} from './pages/blog/all_blogs';
 import {PATH} from './path'
+import Simon from './pages/simon'
 
 class App extends React.Component {
   constructor(){
@@ -51,6 +52,7 @@ class App extends React.Component {
         <Route path="/calculator" element={<Calculator />}/>
         <Route path="/blogs/:id" element={<Blogs />}/>
         <Route path="/blogs/" element={<AllBlogs />}/>
+        <Route path="/simon/" element={<Simon />}/>
         <Route path="/sing-up"  element={this.state.token?<Singup />:<Login />}/>
         <Route path="/blogs/create" element={<CreateBlogPage handleCreateBlog={this.handleCreateBlog.bind(this)}/>}/>
       </Routes>
