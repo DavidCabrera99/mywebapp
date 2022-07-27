@@ -69,7 +69,7 @@ const Blog = ({image,title,id,description,pid,skeleton}) =>{
     }
 
     return (
-            <Grid item xs={12} md={id%4===1||id%4===2?7:5}>
+            <Grid item xs={12} md={4}>
                 {skeleton?
                 <Skeleton variant="rectangular" sx={{
                     borderRadius:'4px',
