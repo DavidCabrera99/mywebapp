@@ -5,7 +5,7 @@ const description = "Information about the project and the company who create th
 
 const About = ()=>{
     return(
-        <div>
+        <div style={{color: 'white'}}>
             <Helmet>
             <title>About - MyReactDbBlog</title>
             <meta

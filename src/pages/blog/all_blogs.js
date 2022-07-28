@@ -82,7 +82,10 @@ const Blog = ({image,title,id,description,pid,skeleton}) =>{
                 </Skeleton>
                 :
                 <Card variant="outlined" sx={{
+                    backgroundColor:'#FFFFFF30',
                     height:'300px',
+                    color:'white',
+                    boxShadow:'black 1px 3px 20px'
                     }}>
                     <CardActionArea onClick={(e)=>routeChange(e,pid)} sx={{height:'100%',alignItems:'flex-start',flexDirection:'column'}}>
                     <CardMedia component="img" alt="Image" src={image} title={""+image} height="200px"/>
@@ -107,6 +110,7 @@ const Title = styled.h1`
     margin-block-end: 0;
 `
 const SubTitle = styled.p`
+    font-family: cursive;
     margin-block-start: 0;
     margin-block-end: 0;
     text-align: left;

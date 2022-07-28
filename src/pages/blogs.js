@@ -135,7 +135,7 @@ const SingleComment = ({cid,comment,title,like,date})=>{
                     <ButtonUp />
                     2
                 </IconButton>:
-                <IconButton  sx={{color: '#081da9'
+                <IconButton  sx={{color: 'orangered'
                     }}>
                     <ButtonUp />
                     2
@@ -148,7 +148,7 @@ const SingleComment = ({cid,comment,title,like,date})=>{
 
 const Date = styled.p`
 margin: 0px;
-color: #000000a2;
+color: #ffffffa2;
 `
 const Title = styled.h2`
 margin: 0px;
@@ -211,6 +211,9 @@ const MyCard = styled(Card)`
     padding: 15px;
     max-width: 720px;
     text-align: left;
+    background-color: #ffffff30 !important;
+    color: #fff !important;
+
 `
 
 const MyCard2 = styled.div`
@@ -229,7 +232,8 @@ const StyledBlogsPage = styled.div`
 
 const BlogTitle =styled.h1`
     font-size: 3rem;
-    color: orangered;
+    color: white;
+    text-shadow: orangered 1px 3px 20px;
     width: 100vw;
     max-width:750px;
     font-weight: 700;
@@ -243,6 +247,9 @@ const BlogTitle =styled.h1`
 `;
 
 const BlogBody = styled(Paper)`
+    font-family: cursive;
+    background-color: #ffffff30 !important;
+    color: #fffe !important;
     padding 15px;
     text-align: left;
     width: 100vw;

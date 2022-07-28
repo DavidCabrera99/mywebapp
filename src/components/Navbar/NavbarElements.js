@@ -8,6 +8,7 @@ export const Nav = styled.nav`
     background: linear-gradient(90deg, #660000, #1112e7);
     height: 85px;
     display: flex;
+    box-shadow: 3px 0px 10px;
     position: sticky;
     top: 0;
     justify-content: flex-start;
@@ -19,16 +20,18 @@ export const Nav = styled.nav`
     `;
 
 export const NavLink = styled(Link)`
-    background: orangered;
+    background: linear-gradient(180deg, #ea0000,#1112e7ba);;
     display: flex;
     align-items: center;
     text-decoration: none;
     font-weight: bold;
     color: #010111;
+    border-bottom: 2px solid;
     padding: 0 1rem;
     height: 100%;
     cursor: pointer;
     &.active {
+        text-shadow: orangered 0px 0px 12px;
         color: #ffffff;
     }
     `;
