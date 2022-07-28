@@ -193,8 +193,8 @@ const mysql_user_local = {
     password: '1',
     database: 'myReactDB'
 }
-
-const connection = mysql.createConnection(mysql_user_local, {
+var release = false;
+const connection = mysql.createConnection(release?mysql_user:mysql_user_local, {
     multipleStatements: true,
 })
 
