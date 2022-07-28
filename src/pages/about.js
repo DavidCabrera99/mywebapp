@@ -1,6 +1,7 @@
 import React from 'react'
 import {Helmet} from 'react-helmet'
 import {Grid} from '@mui/material'
+import {Link} from "react-router-dom"
 
 const description = "Information about the project and the company who create the page."
 
@@ -61,7 +62,22 @@ const About = ()=>{
             <Grid item xs={0} md={2}>
                     <span />
                 </Grid>
+                <Grid item xs={0} md={2}>
+                    <span />
+                </Grid>
+                <Grid item xs={0} md={2}>
+                    <span />
+                </Grid>
+                    <Grid item xs={12} md={8}>
+                    <Link to="/simon">Simon</Link>    
+                    <Link to="/calculator">Calculator</Link>  
+                    <Link to="/sing-up">SingUp</Link>   
+                    </Grid>
+            <Grid item xs={0} md={2}>
+                    <span />
+                </Grid>
         </Grid>
+
         </div>
     )
 }
