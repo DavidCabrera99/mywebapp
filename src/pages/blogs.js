@@ -97,7 +97,10 @@ const Comments = ({id})=> {
     },[id]
     )
     return(
-        <div>
+        <div style={{color: 'white'}}>
+            {comments.length===0?<h2>Se el primero en Comentar</h2>
+            :
+            <h2>Comentarios</h2>}
             {comments.map(comment=>{
                 return(
                 <SingleComment date= {comment.date_created} comment={comment.comment} key={comment.cid} title={comment.author} like={comment.repeticiones} cid={comment.cid}/>
@@ -184,6 +187,7 @@ const NewComment = ({id, setComments})=>{
 
     return(
         <MyCard>
+            <h2>Escribe un Comentario</h2>
             <form onSubmit={submit}>
             <TextField fullWidth={true} color="warning" margin="normal" size="normal" label="Email" variant="outlined"  name="email"/>
             <TextField

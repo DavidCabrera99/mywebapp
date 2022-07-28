@@ -61,7 +61,7 @@
 }
 
 body {
-  background: linear-gradient(90deg, #e21818, #4158ec)
+  background: linear-gradient(90deg, #e21818, #4158ec);
 }
 
 @keyframes App-logo-spin {
