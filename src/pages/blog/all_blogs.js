@@ -51,7 +51,7 @@ export const AllBlogs  = ()=>{
             blogs.map(blog =>{
                 a+=1
                 return (
-                    <Blog key={blog.pid} title={blog.title} id={a} image={PATH+"/img/"+blog.img_link} pid={blog.pid} description={blog.short_desc} skeleton={false}/>
+                    <Blog key={blog.pid} title={blog.title} id={a} image={blog.img_link} pid={blog.pid} description={blog.short_desc} skeleton={false}/>
                 )
             })}
             

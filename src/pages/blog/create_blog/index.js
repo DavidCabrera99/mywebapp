@@ -1,7 +1,10 @@
 import React from 'react';
 import {Paper, TextField, Button, Grid, ImageList, ImageListItem, ImageListItemBar, IconButton} from '@mui/material'
 import { FaCopy } from 'react-icons/fa';
-import {PATH} from '../../../path'
+import {APP_ID,API_KEY,PATH} from '../../../path'
+import Backendless from 'backendless';
+
+Backendless.initApp(APP_ID,API_KEY)
 
 export class CreateBlogPage extends React.Component{
     constructor(){
@@ -18,26 +21,34 @@ export class CreateBlogPage extends React.Component{
     }
 
     onFileUpload(e){
+        e.preventDefault()
         this.state.selectedFile.forEach((file)=>{
-            e.preventDefault()
-            const formData = new FormData();
-            formData.append("myFile",file,file.name);
-            (async () => {
-                const rawResponse = await fetch(PATH+'/api/uploadfile',{
-                    method: 'POST',
-                    body: formData
-                })
-                const content = await rawResponse.json()
-                file.path = content.name
+            Backendless.Files.upload(file,'img').then((fileUrl)=>{
+                file.path = fileUrl.fileURL
                 console.log(file)
                 this.setState({selectedFile:this.state.selectedFile})
-            })()
+            }).catch((e)=>{
+
+            })
+            
+            //const formData = new FormData();
+            //formData.append("myFile",file,file.name);
+            //(async () => {
+            //   const rawResponse = await fetch(PATH+'/api/uploadfile',{
+            //        method: 'POST',
+            //        body: formData
+            //    })
+            //    const content = await rawResponse.json()
+                // file.path = content.name
+                // console.log(file)
+                // this.setState({selectedFile:this.state.selectedFile})
+            //})()
         })
         
     }
 
     copyClipboard(e,path){
-        navigator.clipboard.writeText("<img width=\"100%\" src=\""+PATH+"/img/"+path+"\" alt=\"img\" />").then(()=>{
+        navigator.clipboard.writeText("<img width=\"100%\" src=\""+path+"\" alt=\"img\" />").then(()=>{
             console.log("ok")
             }).catch(err=>console.error(err))
     }
