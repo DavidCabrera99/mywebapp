@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from 'react';
 import './simon.css'
 import {createStore} from 'redux'
@@ -209,7 +210,7 @@ class Color1 extends React.Component{
         }
     }
     render(){
-        var item = this.props.item
+        
         return(
             <div className={this.props.name} onClick={this.onClick} id={this.props.id}>
 
@@ -225,7 +226,7 @@ class Color2 extends React.Component{
         }
     }
     render(){
-        var item = this.props.item
+        
         return(
             <div className={this.props.name} onClick={this.onClick} id={this.props.id}>
                 
@@ -241,7 +242,7 @@ class Color3 extends React.Component{
         }
     }
     render(){
-        var item = this.props.item
+        
         return(
             <div className={this.props.name} onClick={this.onClick} id={this.props.id}>
                 
@@ -257,7 +258,7 @@ class Color4 extends React.Component{
         }
     }
     render(){
-        var item = this.props.item
+        
         return(
             <div className={this.props.name} onClick={this.onClick} id={this.props.id}>
                 

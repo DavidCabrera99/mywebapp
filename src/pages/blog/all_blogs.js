@@ -1,5 +1,5 @@
 import {React,useState, useEffect} from 'react';
-import {Grid,Card, CardMedia, CardContent, CardActionArea, Skeleton, Divider} from '@mui/material'
+import {Grid,Card, CardMedia, CardContent, CardActionArea, Skeleton} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
 import {PATH} from '../../path'
 import styled from 'styled-components'
