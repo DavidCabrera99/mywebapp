@@ -1,20 +1,28 @@
 import {React,useState, useEffect} from 'react';
 import {Grid,Card, CardMedia, CardContent, CardActionArea, Skeleton} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
-import {PATH} from '../../path'
 import styled from 'styled-components'
 import {Helmet} from 'react-helmet'
+import {APP_ID,API_KEY} from '../../path'
+import Backendless from 'backendless'
+
+Backendless.initApp(APP_ID,API_KEY)
 
 export const AllBlogs  = ()=>{
     const [blogs, setBlogs] =useState(null)
     useEffect(()=>{
-        (async () => {
-            const rawResponse = await fetch(PATH+'/api/get/blogs')
-            const content = await rawResponse.json()
-            console.log(content)
-            setBlogs(content.blogs)
-            //this.setState({title:content.title})
-        })()
+        Backendless.Data.of('blogs').find().then((result)=>{
+            setBlogs(result)
+        }).catch((error)=>{
+            console.error(error)
+        })
+        // (async () => {
+        //     const rawResponse = await fetch(PATH+'/api/get/blogs')
+        //     const content = await rawResponse.json()
+        //     console.log(content)
+        //     setBlogs(content.blogs)
+        //     //this.setState({title:content.title})
+        // })()
     }
     ,[])
     var a=-1;
@@ -51,7 +59,7 @@ export const AllBlogs  = ()=>{
             blogs.map(blog =>{
                 a+=1
                 return (
-                    <Blog key={blog.pid} title={blog.title} id={a} image={blog.img_link} pid={blog.pid} description={blog.short_desc} skeleton={false}/>
+                    <Blog key={blog.objectId} title={blog.title} id={a} image={blog.image} pid={blog.objectId} description={blog.description} skeleton={false}/>
                 )
             })}
             

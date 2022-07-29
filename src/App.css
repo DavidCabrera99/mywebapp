@@ -62,6 +62,8 @@
 
 body {
   background: linear-gradient(90deg, #e21818, #4158ec);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 @keyframes App-logo-spin {

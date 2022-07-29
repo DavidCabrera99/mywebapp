@@ -1,8 +1,8 @@
 import React from 'react';
 import {Paper, TextField, Button, Grid, ImageList, ImageListItem, ImageListItemBar, IconButton} from '@mui/material'
 import { FaCopy } from 'react-icons/fa';
-import {APP_ID,API_KEY,PATH} from '../../../path'
 import Backendless from 'backendless';
+import {APP_ID,API_KEY} from '../../../path'
 
 Backendless.initApp(APP_ID,API_KEY)
 

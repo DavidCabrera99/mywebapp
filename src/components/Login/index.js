@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import {TextField, Button, Card} from '@mui/material'
-import {PATH} from '../../path'
+import {APP_ID,API_KEY} from '../../path'
+import Backendless from 'backendless'
 
+Backendless.initApp(APP_ID,API_KEY)
 export default class Login extends React.Component{
     constructor(){
         super()
@@ -23,22 +25,27 @@ export default class Login extends React.Component{
             email: email,
             age: age
         }));
-        (async () => {
-            const rawResponse = await fetch(PATH+'/api/add/user',{
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: username,
-                    email: email,
-                    age: age
-                })
-            })
-            const content = await rawResponse.json()
-            console.log(content)
-        })()
+        Backendless.Data.of('users').save({username: username, email: email, age: age}).then((saved)=>{
+            console.log(saved)
+        }).catch((err)=>{
+            console.log(err)
+        })
+        // (async () => {
+        //     const rawResponse = await fetch(PATH+'/api/add/user',{
+        //         method: 'POST',
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             username: username,
+        //             email: email,
+        //             age: age
+        //         })
+        //     })
+        //     const content = await rawResponse.json()
+        //     console.log(content)
+        // })()
 
         /*const requestOptions = {
             method: 'POST',

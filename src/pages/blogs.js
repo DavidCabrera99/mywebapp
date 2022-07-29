@@ -3,8 +3,11 @@ import styled from 'styled-components'
 import {Paper, Grid, Card, TextField,Button, IconButton, Badge, Skeleton} from '@mui/material'
 import {useParams} from "react-router-dom"
 import {FaTimes as ButtonUp} from 'react-icons/fa'
-import {PATH,ADS} from '../path'
 import {HelmetProvider,Helmet} from 'react-helmet-async'
+import {APP_ID,API_KEY} from '../path'
+import Backendless from 'backendless'
+
+Backendless.initApp(APP_ID,API_KEY)
 
 const Blogs = ()=>{
     let {id} = useParams();
@@ -14,18 +17,29 @@ const Blogs = ()=>{
     const [description,setDescription] = useState('')
 
     useEffect(()=>{
-        (async () => {
-            const rawResponse = await fetch(PATH+'/api/blog/get/'+id)
-            const content = await rawResponse.json()
-            console.log(content)
-            setTitle(content.title)
-            let body = content.body.replaceAll("{title}",content.title)
-            body = body.replaceAll("{ad}",ADS)
+        Backendless.Data.of('blogs').findById(id).then((data)=>{
+            console.log(data)
+            setTitle(data.title)
+            let body = data.body.replaceAll("{title}",data.title)
+            //body = body.replaceAll("{ad}",ADS)
             setBody(body)
-            setImg(PATH+"/img/"+content.img_link)
-            setDescription(content.short_desc)
-            //this.setState({title:content.title})
-        })()
+            setImg(data.image)
+            setDescription(data.description)
+        }).catch((error)=>{
+            console.error(error)
+        })
+        // (async () => {
+        //     const rawResponse = await fetch(PATH+'/api/blog/get/'+id)
+        //     const content = await rawResponse.json()
+        //     console.log(content)
+        //     setTitle(content.title)
+        //     let body = content.body.replaceAll("{title}",content.title)
+        //     body = body.replaceAll("{ad}",ADS)
+        //     setBody(body)
+        //     setImg(PATH+"/img/"+content.img_link)
+        //     setDescription(content.short_desc)
+        //     //this.setState({title:content.title})
+        // })()
     },[id]
     )
     return(
@@ -88,14 +102,28 @@ const Comments = ({id})=> {
     const [comments, setComments] = useState([]);
 
     useEffect(()=>{
-        (async () => {
-            const rawResponse = await fetch(PATH+'/api/blog/get/comments/' + id)
-            const content = await rawResponse.json()
-            console.log(content)
-            setComments(content.comments)
-        })()
+        var query = Backendless.DataQueryBuilder.create();
+        query.setWhereClause("blog_id = '"+id+"'")
+        Backendless.Data.of('comments').find(query).then((data)=>{
+            console.log(data)
+            setComments(data)
+
+        }).catch((error)=>{
+            console.error(error)
+        })
+        // (async () => {
+        //     const rawResponse = await fetch(PATH+'/api/blog/get/comments/' + id)
+        //     const content = await rawResponse.json()
+        //     console.log(content)
+        //     setComments(content.comments)
+        // })()
     },[id]
     )
+
+    const addComment = (comment)=>{
+        setComments(comments.concat(comment))
+    }
+
     return(
         <div style={{color: 'white'}}>
             {comments.length===0?<h2>Se el primero en Comentar</h2>
@@ -103,10 +131,10 @@ const Comments = ({id})=> {
             <h2>Comentarios</h2>}
             {comments.map(comment=>{
                 return(
-                <SingleComment date= {comment.date_created} comment={comment.comment} key={comment.cid} title={comment.author} like={comment.repeticiones} cid={comment.cid}/>
+                <SingleComment date= {comment.created} comment={comment.comment} key={comment.objectId} title={comment.email} like={comment.repeticiones} cid={comment.objectId}/>
                 )
             })}
-            <NewComment id={id} setComments={setComments}/>
+            <NewComment id={id} addComment={addComment}/>
         </div>
     )
 }
@@ -117,12 +145,21 @@ const SingleComment = ({cid,comment,title,like,date})=>{
 
     const RepeatComment= (event,comment)=>{
         event.preventDefault();
-        (async () => {
-            const rawResponse = await fetch(PATH+'/api/comments/repeat/' + comment)
-            const content = await rawResponse.json()
-            console.log(content)
-            SetRepeat(content.repeticiones)
-        })()
+        Backendless.Data.of("comments").save({
+            objectId: cid,
+            repeticiones: like+1
+        }).then((value)=>{
+            SetRepeat(value.repeticiones)
+            console.log(value)
+        }).catch((error)=>{
+            console.log(error)
+        })
+        // (async () => {
+        //     const rawResponse = await fetch(PATH+'/api/comments/repeat/' + comment)
+        //     const content = await rawResponse.json()
+        //     console.log(content)
+        //     SetRepeat(content.repeticiones)
+        // })()
     }
 
     return(
@@ -157,7 +194,7 @@ const Title = styled.h2`
 margin: 0px;
 `
 
-const NewComment = ({id, setComments})=>{
+const NewComment = ({id, addComment})=>{
 
     
     const submit = (e)=>{
@@ -166,23 +203,34 @@ const NewComment = ({id, setComments})=>{
         let comment = e.target.comment.value;
         let id = e.target.id.value;
 
-        (async () => {
-            const rawResponse = await fetch(PATH+'/api/add/comment',{
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: email,
-                    comment: comment,
-                    id: id,
+        Backendless.Data.of("comments").save({
+            email: email,
+            comment: comment,
+            blog_id:id,
+            repeticiones: 1
+        }).then((value)=>{
+            console.log(value)
+            addComment(value)
+        }).catch((error)=>{
+            console.log(error)
+        })
+        // (async () => {
+        //     const rawResponse = await fetch(PATH+'/api/add/comment',{
+        //         method: 'POST',
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             email: email,
+        //             comment: comment,
+        //             id: id,
 
-                })
-            })
-            const content = await rawResponse.json()
-            setComments(content.comments)
-        })()
+        //         })
+        //     })
+        //     const content = await rawResponse.json()
+        //     setComments(content.comments)
+        // })()
     }
 
     return(

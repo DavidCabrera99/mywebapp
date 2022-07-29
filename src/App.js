@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import 'animate.css';
 import Navbar from './components/Navbar'
-import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+import {BrowserRouter as Router,Routes,Route,useNavigate} from 'react-router-dom'
 import Home from './pages'
 import About from './pages/about';
 import Blogs from './pages/blogs';
@@ -12,8 +12,11 @@ import Menu from './components/Menu';
 import Login from './components/Login';
 import {CreateBlogPage} from './pages/blog/create_blog';
 import {AllBlogs} from './pages/blog/all_blogs';
-import {PATH} from './path'
 import Simon from './pages/simon'
+import {APP_ID,API_KEY} from './path'
+import Backendless from 'backendless'
+
+Backendless.initApp(APP_ID,API_KEY)
 
 class App extends React.Component {
   constructor(){
@@ -85,24 +88,39 @@ class App extends React.Component {
     let description = e.target.description.value;
     let image = e.target.image.value;
     console.log(image);
-    (async () => {
-        const rawResponse = await fetch(PATH+'/api/add/blog',{
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                title: title,
-                body: body,
-                description: description,
-                image: image,
+    Backendless.Data.of('blogs').save({
+      title: title,
+      body: body,
+      description: description,
+      image: image
+      
+    }).then((saved) => {
+        let navigate = useNavigate();
+        let path = `/blogs/${saved.objectId}`
+        navigate(path)
+      console.log(saved);
+    }).catch((err) => {
+      console.log(err);
+    })
 
-            })
-        })
-        const content = await rawResponse.json()
-        console.log(content)
-    })()
+    // (async () => {
+    //     const rawResponse = await fetch(PATH+'/api/add/blog',{
+    //         method: 'POST',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             title: title,
+    //             body: body,
+    //             description: description,
+    //             image: image,
+
+    //         })
+    //     })
+    //     const content = await rawResponse.json()
+    //     console.log(content)
+    // })()
   }
 }
 
