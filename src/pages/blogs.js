@@ -298,7 +298,7 @@ const BlogTitle =styled.h1`
     
 `;
 
-const BlogBody = styled(Paper)`
+export const BlogBody = styled(Paper)`
     font-family: cursive;
     background-color: #ffffff30 !important;
     color: #fffe !important;

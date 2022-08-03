@@ -3,6 +3,7 @@ import {Paper, TextField, Button, Grid, ImageList, ImageListItem, ImageListItemB
 import { FaCopy } from 'react-icons/fa';
 import Backendless from 'backendless';
 import {APP_ID,API_KEY} from '../../../path'
+import {BlogBody} from '../../blogs'
 
 Backendless.initApp(APP_ID,API_KEY)
 
@@ -11,7 +12,7 @@ export class CreateBlogPage extends React.Component{
         super()
         this.state = {
             selectedFile: [],
-            
+            temp_blog: '',
         }
     }
 
@@ -47,6 +48,10 @@ export class CreateBlogPage extends React.Component{
         
     }
 
+    changeBlog(e){
+        this.setState({temp_blog: e.target.value})
+    }
+
     copyClipboard(e,path){
         navigator.clipboard.writeText("<img width=\"100%\" src=\""+path+"\" alt=\"img\" />").then(()=>{
             console.log("ok")
@@ -77,6 +82,7 @@ export class CreateBlogPage extends React.Component{
                             marginBottom: '10px',
                         }}
                         name="body"
+                        onChange={this.changeBlog.bind(this)}
                         />
                         <TextField
                         multiline={true}
@@ -127,7 +133,9 @@ export class CreateBlogPage extends React.Component{
                 </form>
             </Paper>
             </Grid>
-            
+            <Grid item xs={12} md={8} sx={{margin:'auto'}}>
+                <BlogBody  className="Blog-body" dangerouslySetInnerHTML={{__html:this.state.temp_blog}}/>
+            </Grid>
         </Grid>
     )
     }
