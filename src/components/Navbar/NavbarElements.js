@@ -5,7 +5,7 @@ import styled from "styled-components"
 
 
 export const Nav = styled.nav`
-    background: linear-gradient(90deg, #660000, #1112e7);
+    background: linear-gradient(90deg, #1b00ff,#e400ff);
     height: 85px;
     display: flex;
     box-shadow: 3px 0px 10px;
@@ -20,7 +20,7 @@ export const Nav = styled.nav`
     `;
 
 export const NavLink = styled(Link)`
-    background: linear-gradient(180deg, #ea0000,#1112e7ba);;
+    background: linear-gradient(180deg, #1b00ff,#e400ff);;
     display: flex;
     align-items: center;
     text-decoration: none;

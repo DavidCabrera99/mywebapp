@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../logo.svg'
+import crown from '../../svg/crown.svg'
 import { Link } from 'react-router-dom';
 import {Nav , NavLink, NavMenu, Bars} from './NavbarElements';
 
@@ -8,8 +8,8 @@ const Navbar = ({handleNavToggle}) => {
         <>
             <Nav>
             <Bars onClick={handleNavToggle}/>
-                <img src={logo} className="App-logo" alt="logo" />
-                <Link to="/" className="WebPageTitle">React Projects</Link>
+                <img src={crown} className="App-logo" alt="logo" />
+                <Link to="/" className="WebPageTitle">Legndary Blogs</Link>
                 <NavMenu>
                     <NavLink to='/blogs' activestyle="true">
                         Blogs

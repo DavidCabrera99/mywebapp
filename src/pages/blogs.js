@@ -57,11 +57,11 @@ const Blogs = ()=>{
             <meta property="og:type" content="website" />
         </Helmet>
         </HelmetProvider>
-            <Grid container>
+            <Grid container sx={{padding: '10px'}}>
                 <Grid item xs={0} md={2}>
                     <span />
                 </Grid>
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={8} sx={{margin:'auto'}}>
                 {title===0?
                     <Skeleton variant="rectangular" sx={{
                         width: '100vw',
@@ -80,7 +80,7 @@ const Blogs = ()=>{
                     }} height="320px">
                         <BlogBody>hola</BlogBody>
                         </Skeleton>:
-                <BlogBody  className="animate__animated animate__fadeInUp" dangerouslySetInnerHTML={{__html:body}}>
+                <BlogBody  className="animate__animated animate__fadeInUp Blog-body" dangerouslySetInnerHTML={{__html:body}}>
                 </BlogBody>
                 }
                 </Grid>
@@ -304,7 +304,6 @@ const BlogBody = styled(Paper)`
     color: #fffe !important;
     padding 15px;
     text-align: left;
-    width: 100vw;
     max-width:  720px;
     font-weight: 500;
     font-size: 22px;
