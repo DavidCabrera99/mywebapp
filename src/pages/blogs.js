@@ -299,7 +299,7 @@ const BlogTitle =styled.h1`
 `;
 
 export const BlogBody = styled(Paper)`
-    font-family: cursive;
+    font-family: sans-serif;
     background-color: #ffffff30 !important;
     color: #fffe !important;
     padding 15px;
