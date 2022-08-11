@@ -2,7 +2,9 @@ import {FaBars} from "react-icons/fa"
 import {NavLink as Link} from "react-router-dom"
 import styled from "styled-components"
 
+export const CreateButton =styled(Link)`
 
+`
 
 export const Nav = styled.nav`
     background: linear-gradient(90deg, #1b00ff,#e400ff);

@@ -14,6 +14,7 @@ import {CreateBlogPage} from './pages/blog/create_blog';
 import {AllBlogs} from './pages/blog/all_blogs';
 import Simon from './pages/simon'
 import {APP_ID,API_KEY} from './path'
+import Grid from './components/Place/Grid';
 import Backendless from 'backendless'
 
 Backendless.initApp(APP_ID,API_KEY)
@@ -52,6 +53,7 @@ class App extends React.Component {
       <Routes>
         <Route exact path="/" element={<Home />}/>
         <Route path="/about" element={<About />}/>
+        <Route path="/place" element={<Grid />}/>
         <Route path="/calculator" element={<Calculator />}/>
         <Route path="/blogs/:id" element={<Blogs />}/>
         <Route path="/blogs/" element={<AllBlogs />}/>
